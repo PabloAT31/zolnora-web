@@ -3,93 +3,279 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Correo confirmado — Zolnora</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Correo confirmado | Zolnora</title>
+<meta name="description" content="Tu correo quedó confirmado. Ya puedes entrar a la app Zolnora desde tu celular." />
+<meta name="robots" content="noindex" />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#F5F4F1" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0F1013" media="(prefers-color-scheme: dark)" />
 <style>
   :root {
-    --background: #FAFAF9;
+    --bg: #F5F4F1;
     --surface: #FFFFFF;
-    --border: #E7E5E4;
-    --text-primary: #1C1917;
-    --text-secondary: #78716C;
-    --primary: #2563EB;
-    --success: #16A34A;
+    --line: #E8E6E0;
+    --ink: #14161A;
+    --ink-2: #5D6068;
+    --accent: #4F56C4;
+    --accent-ink: #FFFFFF;
+    --accent-soft: #E8EDFF;
+    --ok: #007F4E;
+    --ok-soft: #DEF5E8;
+    --ok-text: #006B42;
+    --veh: #975800;
+    --veh-soft: #F6EAD8;
+    --glow-a: rgba(79, 86, 196, 0.16);
+    --glow-b: rgba(0, 127, 78, 0.12);
+    --shadow: 0 1px 2px rgba(20, 22, 26, 0.04), 0 12px 40px rgba(20, 22, 26, 0.08);
   }
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: var(--background);
-    color: var(--text-primary);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0F1013;
+      --surface: #1A1C21;
+      --line: #2C2F36;
+      --ink: #F5F4F1;
+      --ink-2: #B6B8BD;
+      --accent: #9DA2F5;
+      --accent-ink: #0F1013;
+      --accent-soft: #262A4A;
+      --ok: #5CC497;
+      --ok-soft: #15362A;
+      --ok-text: #5CC497;
+      --veh: #E0A55A;
+      --veh-soft: #3A2A15;
+      --glow-a: rgba(157, 162, 245, 0.16);
+      --glow-b: rgba(92, 196, 151, 0.10);
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
   }
+  :root[data-theme="dark"] {
+    --bg: #0F1013; --surface: #1A1C21; --line: #2C2F36; --ink: #F5F4F1; --ink-2: #B6B8BD;
+    --accent: #9DA2F5; --accent-ink: #0F1013; --accent-soft: #262A4A; --ok: #5CC497; --ok-soft: #15362A; --ok-text: #5CC497;
+    --veh: #E0A55A; --veh-soft: #3A2A15; --glow-a: rgba(157, 162, 245, 0.16); --glow-b: rgba(92, 196, 151, 0.10);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.35);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   body {
+    margin: 0;
+    min-height: 100vh;
     min-height: 100svh;
+    background:
+      radial-gradient(60rem 28rem at 12% -8%, var(--glow-a), transparent 60%),
+      radial-gradient(48rem 26rem at 108% 4%, var(--glow-b), transparent 60%),
+      var(--bg);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: 24px 16px;
   }
+
+  .skip {
+    position: absolute; left: 16px; top: -100px; z-index: 10;
+    background: var(--accent); color: var(--accent-ink);
+    padding: 10px 16px; border-radius: 12px; font-weight: 600; text-decoration: none;
+  }
+  .skip:focus { top: 12px; }
+
   .card {
     width: 100%;
-    max-width: 420px;
+    max-width: 460px;
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 40px 32px;
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+    padding: 36px 28px 28px;
     text-align: center;
+    overflow-wrap: break-word;
   }
-  .badge {
-    width: 64px;
-    height: 64px;
-    border-radius: 999px;
-    background: #EFFAF3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-  }
-  .badge svg { width: 30px; height: 30px; }
+
   .brand {
-    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 28px;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  .brand svg { width: 36px; height: 36px; border-radius: 10px; flex: none; }
+
+  .check {
+    position: relative;
+    width: 96px; height: 96px;
+    margin: 0 auto 22px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: var(--ok-soft);
+  }
+  .check::before, .check::after {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    border: 2px solid var(--ok);
+    opacity: 0;
+  }
+  .check svg { width: 46px; height: 46px; position: relative; }
+  .check path {
+    stroke: var(--ok); stroke-width: 3; fill: none;
+    stroke-linecap: round; stroke-linejoin: round;
+    stroke-dasharray: 30; stroke-dashoffset: 30;
+    animation: draw 0.55s 0.25s cubic-bezier(.4, 0, .2, 1) forwards;
+  }
+  .check::before { animation: ring 1.8s 0.5s ease-out 1 forwards; }
+  .check::after  { animation: ring 1.8s 0.9s ease-out 1 forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes ring { 0% { transform: scale(1); opacity: 0.55; } 100% { transform: scale(1.7); opacity: 0; } }
+
+  h1 {
+    margin: 0 0 10px;
+    font-size: clamp(1.6rem, 6.4vw, 2rem);
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .lead {
+    margin: 0 auto 28px;
+    max-width: 34ch;
+    font-size: 1.0625rem;
+    color: var(--ink-2);
+    text-wrap: balance;
+  }
+
+  h2 {
+    margin: 0 0 14px;
+    font-size: 0.8125rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--primary);
-    margin-bottom: 16px;
+    color: var(--accent);
   }
-  h1 {
-    font-size: 22px;
+  .steps {
+    list-style: none;
+    margin: 0 0 26px;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+    text-align: left;
+    counter-reset: paso;
+  }
+  .steps li {
+    counter-increment: paso;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+  .steps li::before {
+    content: counter(paso);
+    flex: none;
+    width: 30px; height: 30px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-ink);
     font-weight: 700;
-    margin: 0 0 12px;
+    font-size: 0.9375rem;
+    margin-top: 1px;
   }
-  p {
-    font-size: 15px;
+  .steps strong { display: block; font-size: 1rem; line-height: 1.35; }
+  .steps span { display: block; font-size: 0.9375rem; line-height: 1.45; color: var(--ink-2); margin-top: 2px; }
+
+  .chips {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+    list-style: none; margin: 0 0 26px; padding: 0;
+  }
+  .chips li {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 0.9375rem; font-weight: 600;
+    line-height: 1.2;
+  }
+  .chips li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+  .chip-rec { background: var(--accent-soft); color: var(--accent); }
+  .chip-fin { background: var(--ok-soft); color: var(--ok-text); }
+  .chip-veh { background: var(--veh-soft); color: var(--veh); }
+
+  .note {
+    margin: 0 0 22px;
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 0.9375rem;
     line-height: 1.5;
-    color: var(--text-secondary);
-    margin: 0 0 4px;
+    color: var(--ink-2);
+    background: var(--accent-soft);
+    border-radius: 16px;
   }
-  .hint {
-    margin-top: 24px;
-    font-size: 13px;
-    color: var(--text-secondary);
+  .note strong { color: var(--ink); }
+
+  footer { border-top: 1px solid var(--line); padding-top: 18px; }
+  footer p { margin: 0 0 6px; font-size: 0.9375rem; line-height: 1.5; color: var(--ink-2); }
+  footer .fine { font-size: 0.875rem; margin-bottom: 0; }
+  a { color: var(--accent); font-weight: 600; text-underline-offset: 3px; }
+  a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+  @media (max-width: 360px) {
+    .card { padding: 28px 18px 22px; border-radius: 24px; }
+    .steps li { padding: 12px 12px; gap: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .check path { animation: none; stroke-dashoffset: 0; }
+    .check::before, .check::after { animation: none; }
+  }
+  @media (forced-colors: active) {
+    .card, .steps li, .note { border: 1px solid CanvasText; }
   }
 </style>
 </head>
 <body>
-  <div class="card">
-    <div class="badge">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 6L9 17l-5-5" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <main class="card" id="contenido">
+    <p class="brand">
+      <svg viewBox="0 0 1024 1024" role="img" aria-label="Logo de Zolnora" focusable="false">
+        <rect width="1024" height="1024" fill="#4F56C4" />
+        <path d="M266 418H635L295 728H700" fill="none" stroke="#FFFFFF" stroke-width="114" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="757" cy="304" r="62" fill="#FFFFFF" />
       </svg>
+      Zolnora
+    </p>
+
+    <div class="check" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
     </div>
-    <div class="brand">Zolnora</div>
-    <h1>Tu correo quedó confirmado</h1>
-    <p>Ya puedes cerrar esta ventana y volver a abrir la app Zolnora en tu celular.</p>
-    <p>Entra con el mismo correo y la contraseña que creaste.</p>
-    <div class="hint">Si tienes algún problema, escríbenos a zolnora.oficial@gmail.com</div>
-  </div>
+
+    <h1>¡Tu correo quedó confirmado!</h1>
+    <p class="lead">Gracias por unirte a Zolnora. Tu cuenta ya está lista para usarse.</p>
+
+    <h2>Qué sigue</h2>
+    <ol class="steps">
+      <li><div><strong>Abre la app Zolnora</strong><span>Búscala en tu celular y ábrela.</span></div></li>
+      <li><div><strong>Inicia sesión</strong><span>Usa el mismo correo y la contraseña que creaste.</span></div></li>
+      <li><div><strong>Empieza a organizarte</strong><span>Todo lo tuyo en un solo lugar, con calma.</span></div></li>
+    </ol>
+
+    <ul class="chips" aria-label="Lo que puedes organizar en Zolnora">
+      <li class="chip-rec">Recordatorios</li>
+      <li class="chip-fin">Finanzas</li>
+      <li class="chip-veh">Vehículos</li>
+    </ul>
+
+    <p class="note"><strong>¿Abriste este enlace en un computador?</strong> No pasa nada: tu correo ya quedó confirmado. Solo falta que entres desde tu celular. Ya puedes cerrar esta ventana.</p>
+
+    <footer>
+      <p>¿Necesitas ayuda? Escríbenos a <a href="mailto:zolnora.oficial@gmail.com">zolnora.oficial@gmail.com</a></p>
+      <p class="fine">Zolnora no muestra publicidad ni vende tus datos.</p>
+    </footer>
+  </main>
 </body>
 </html>
